@@ -1,13 +1,6 @@
-use std::collections::HashMap;
 use std::fmt;
 use std::io;
 use std::ops::Index;
-
-struct Load {
-        min: u16,
-	max: u16,
-	cur: u16
-}
 
 struct Floor {
 	min: i16,
@@ -22,20 +15,18 @@ enum Direction {
 }
 
 pub struct Elevator {
-        load: Load,
         floor: Floor,
         dir: Direction,
-        reqs: HashMap<i16, u8>
+        reqs: Vec<i16>
 }
 
 //associated functions
 impl Elevator {
 	pub fn new() -> Elevator {
 		Elevator {
-			load: Load {min: 0, max: 0, cur: 0},
 			floor: Floor {min: 0, max: 0, cur: 0},
 			dir: Direction::NONE,
-			reqs: HashMap::new()
+			reqs: Vec::<i16>::new()
 		}
 	}
 }
@@ -54,21 +45,11 @@ impl Elevator {
 				Ok(num) => num,
 				Err(_) => break
 			};
-			
-			if self.reqs.contains_key(&get_num) {
-				let val = *self.reqs.index(&get_num);
-				self.reqs.insert(get_num, val + 1);
-			} else {
-				self.reqs.insert(get_num, 1);
-			}
+			self.reqs.push(get_num);
 		}
 	}
 
-	pub fn operate(&self) {
-		let mut entries = Vec::<i16>::new();
-		for key in self.reqs.keys() {
-			entries.push(*key);
-		}
+	pub fn go(&mut self) {
 		
 	}
 }
