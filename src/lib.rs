@@ -42,25 +42,33 @@ impl Elevator {
 
 //methods
 impl Elevator {
-pub fn panel(&mut self) {
-	loop {
-		println!("Enter floor number: ");
-		let mut get_num = String::new();
-		io::stdin()
-			.read_line(&mut get_num)
-			.expect("Failed to enter floor number!");
-		
-		let get_num: i16 = match get_num.trim().parse() {
-			Ok(num) => num,
-			Err(_) => break
-		};
-		
-		if self.reqs.contains_key(&get_num) {
-			let val = *self.reqs.index(&get_num);
-			self.reqs.insert(get_num, val + 1);
-		} else {
-			self.reqs.insert(get_num, 1);
+	pub fn panel(&mut self) {
+		loop {
+			println!("Enter floor number: ");
+			let mut get_num = String::new();
+			io::stdin()
+				.read_line(&mut get_num)
+				.expect("Failed to enter floor number!");
+			
+			let get_num: i16 = match get_num.trim().parse() {
+				Ok(num) => num,
+				Err(_) => break
+			};
+			
+			if self.reqs.contains_key(&get_num) {
+				let val = *self.reqs.index(&get_num);
+				self.reqs.insert(get_num, val + 1);
+			} else {
+				self.reqs.insert(get_num, 1);
+			}
 		}
 	}
-}
+
+	pub fn operate(&self) {
+		let mut entries = Vec::<i16>::new();
+		for key in self.reqs.keys() {
+			entries.push(*key);
+		}
+		
+	}
 }
