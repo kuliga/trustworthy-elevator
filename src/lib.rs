@@ -40,16 +40,23 @@ impl Elevator {
 			io::stdin()
 				.read_line(&mut get_num)
 				.expect("Failed to enter floor number!");
-			
+
 			let get_num: i16 = match get_num.trim().parse() {
 				Ok(num) => num,
 				Err(_) => break
 			};
-			self.reqs.push(get_num);
+			if self.reqs.contains(&get_num) {
+				continue;
+			} else {
+				self.reqs.push(get_num);
+			}
+			
 		}
+			
 	}
 
-	pub fn go(&mut self) {
-		
+	fn next_floor(&self) -> i16 {
+
 	}
+
 }
